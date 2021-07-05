@@ -36,16 +36,12 @@ async def on_message(message):
                 output += "\n"
             client.key = 1
             await message.channel.send(output)
-                
-            # @ here and say that voting has started and output the key
         else:
-            # Say that a vote hasn't been started
-            pass
+            await message.channel.send("A vote has not been started.")
 
     if '!!startvote' in message.content:
         if client.voting:
-            # say a vote has already started
-            pass
+            await message.channel.send("A vote is already ongoing.")
         else:
             client.voting = True
             pub_key, client.key = rsa.newkeys(1024)
@@ -61,7 +57,7 @@ async def on_message(message):
             client.votes.append(content)
             print("vote cast")
         else:
-            # say a vote hasn't started yet
+            await message.channel.send("A vote has not been started.")
             pass
 
 client.run(TOKEN)
